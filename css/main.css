@@ -1,0 +1,28 @@
+@charset "UTF-8";
+body {
+    padding: 100px;
+}
+.container {
+    width: 1000px;
+    height: 500px;
+    position: relative;
+}
+.section {
+    width: 1000px;
+    height: 500px;
+}
+.section:nth-child(1) { background: red; }
+.section:nth-child(2) { background: blue; }
+.section:nth-child(3) { background: green; }
+.section:nth-child(4) { background: violet; }
+
+.move_btn {
+    width: 50px;
+    height: 50px;
+    background: red;
+    cursor: pointer;
+}
+
+.new_partialscroll {
+    overflow: scroll;
+}
