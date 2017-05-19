@@ -1,15 +1,25 @@
 @charset "UTF-8";
-body {
-    padding: 100px;
+html, body {
+    height: 100%;
+    background: black;
+    overflow: hidden;
 }
 .container {
-    width: 1000px;
-    height: 500px;
+    width: 1920px;
+    height: 980px;
     position: relative;
 }
+@media screen and (min-width: 1921px) {
+    .container {
+        top: 50%;
+        left: 50%;
+        margin-top: -490px;
+        margin-left: -960px;
+    }
+}
 .section {
-    width: 1000px;
-    height: 500px;
+    width: 1920px;
+    height: 980px;
 }
 .section:nth-child(1) { background: red; }
 .section:nth-child(2) { background: blue; }
@@ -19,8 +29,11 @@ body {
 .move_btn {
     width: 50px;
     height: 50px;
-    background: red;
+    background: black;
     cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .new_partialscroll {
