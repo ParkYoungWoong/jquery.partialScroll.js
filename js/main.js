@@ -21,6 +21,14 @@ $(function () {
     scroll1.moveToDown();
   });
 
+  $('.stop').on('click', function () {
+    scroll1.stopScroll();
+  });
+
+  $('.start').on('click', function () {
+    scroll1.startScroll();
+  });
+
 });
 
 

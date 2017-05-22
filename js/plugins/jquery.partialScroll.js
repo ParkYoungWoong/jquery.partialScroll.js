@@ -60,7 +60,6 @@
 
       _el.on('mousewheel DOMMouseScroll', function(e) {
 
-
         if (_s.throttleWheel) return;
         _s.throttleWheel = true;
 
@@ -153,6 +152,15 @@
     _el.moveToDown = function () {
       checkDirection('down');
     };
+
+    _el.stopScroll = function () {
+      _s.throttleWheel = true;
+    };
+
+    _el.startScroll = function () {
+      _s.throttleWheel = false;
+    };
+
 
     init();
 
