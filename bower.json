@@ -1,0 +1,26 @@
+{
+  "name": "partial-scrolling",
+  "description": "Partial section scrollable plug-in.",
+  "main": "index.html",
+  "authors": [
+    "ParkYoungWoong"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "jquery",
+    "partial",
+    "scroll",
+    "scrolling"
+  ],
+  "homepage": "https://github.com/ParkYoungWoong/jquery.partialScroll.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.12.4"
+  }
+}

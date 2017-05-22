@@ -1,0 +1,32 @@
+{
+  "name": "partial-scrolling",
+  "version": "1.0.0",
+  "description": "Partial section scrollable plug-in.",
+  "main": "index.html",
+  "dependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ParkYoungWoong/jquery.partialScroll.js.git"
+  },
+  "keywords": [
+    "jquery",
+    "partial",
+    "scroll",
+    "scrolling"
+  ],
+  "author": "ParkYoungWoong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ParkYoungWoong/jquery.partialScroll.js/issues"
+  },
+  "homepage": "https://github.com/ParkYoungWoong/jquery.partialScroll.js#readme"
+}

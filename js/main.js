@@ -1,6 +1,6 @@
 $(function () {
 
-  var scroll1 = $('.partialscroll').partialScroll({
+  var scroll1 = $('.container').partialScroll({
     sliderBefore: function (oldIndex, newIndex) {
       console.log('BEFORE - old: ' + oldIndex + ', new: ' + newIndex);
     },
