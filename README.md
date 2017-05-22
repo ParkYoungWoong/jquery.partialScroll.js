@@ -1,5 +1,33 @@
 # Partail Scroll JS
 
+## Installation
+
+### Step 1
+
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/jquery.partialScroll.js"></script>
+```
+
+### Step 2
+
+```html
+<div class="partialscroll">
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+    <div class="section"></div>
+</div>
+```
+
+### Step 3
+
+```js
+$(document).ready(function () {
+  $('.partialscroll').partialScroll();
+});
+```
+
 ## Options
 
 ### General
@@ -104,7 +132,7 @@ var slider = $('partialscroll').partialScroll();
 slider.moveToDown();
 ```
 
-#### stopScroll
+#### `stopScroll`
 
 스크롤 정지 (모든 스크롤 메소드 사용 불가능)
 
@@ -113,7 +141,7 @@ var slider = $('partialscroll').partialScroll();
 slider.stopScroll();
 ```
 
-#### startScroll
+#### `startScroll`
 
 스크롤 시작 (모든 스크롤 메소드 사용 가능)
 
