@@ -42,6 +42,7 @@
         position: 'relative'
       });
 
+      _s.stopAllFunctions = false;
       _s.throttleWheel = false;
       _s.scrolling = false;
       _s.oldIndex = 0;
@@ -59,6 +60,7 @@
     function checkMouseWheel() {
 
       _el.on('mousewheel DOMMouseScroll', function(e) {
+        if (_s.stopAllFunctions) return;
 
         if (_s.throttleWheel) return;
         _s.throttleWheel = true;
@@ -87,6 +89,8 @@
     }
 
     function checkDirection(secIndex) {
+      if (_s.stopAllFunctions) return;
+
       if ( _s.scrolling
         || _s.currentIndex === 0 && secIndex === 'up'
         || _s.currentIndex === _s.secLength - 1 && secIndex === 'down'
@@ -154,11 +158,11 @@
     };
 
     _el.stopScroll = function () {
-      _s.throttleWheel = true;
+      _s.stopAllFunctions = true;
     };
 
     _el.startScroll = function () {
-      _s.throttleWheel = false;
+      _s.stopAllFunctions = false;
     };
 
     init();
