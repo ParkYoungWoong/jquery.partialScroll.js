@@ -161,7 +161,6 @@
       _s.throttleWheel = false;
     };
 
-
     init();
 
     return this;
