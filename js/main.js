@@ -9,10 +9,18 @@ $(function () {
     }
   });
 
-  $('.move_btn').on('click', function () {
+  $('.move_to').on('click', function () {
     scroll1.moveTo(2);
   });
 
-  // $('.new_partialscroll').partialScroll();
+  $('.move_up').on('click', function () {
+    scroll1.moveToUp();
+  });
+
+  $('.move_down').on('click', function () {
+    scroll1.moveToDown();
+  });
 
 });
+
+

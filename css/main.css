@@ -20,22 +20,30 @@ html, body {
 .section {
     width: 1920px;
     height: 980px;
+    font-size: 200px;
+    text-align: center;
+    line-height: 980px;
+    color: white;
 }
 .section:nth-child(1) { background: red; }
 .section:nth-child(2) { background: blue; }
 .section:nth-child(3) { background: green; }
 .section:nth-child(4) { background: violet; }
 
-.move_btn {
-    width: 50px;
-    height: 50px;
-    background: black;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
+.btn {
+    position: fixed;
+    top: 10px;
     left: 0;
 }
-
-.new_partialscroll {
-    overflow: scroll;
+.btn li {
+    width: 120px;
+    height: 20px;
+    margin: 10px;
+    background: black;
+    border: 1px solid white;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    cursor: pointer;
 }
