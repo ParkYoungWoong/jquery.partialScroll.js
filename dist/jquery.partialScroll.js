@@ -30,14 +30,16 @@
 
     function init() {
 
-      opts.secWidth = _el.css('width');
-      opts.secHeight = _el.css('height');
-
       _el.css({ overflow: 'hidden' });
       _el.wrapInner('<div class="' + AREA + '"></div>');
+
+      _s.secWidth = opts.secWidth === 0 ? parseInt(_el.css('width')) : opts.secWidth;
+      _s.secHeight = opts.secHeight === 0 ? parseInt(_el.css('height')) : opts.secHeight;
+      _s.secLength = opts.secLength === 0 ? _el.find('.section').length : opts.secLength;
+
       _s.wrap = _el.find('.' + AREA);
       _s.wrap.css({
-        width: opts.secWidth,
+        width: _s.secWidth,
         position: 'relative'
       });
 
@@ -47,8 +49,7 @@
       _s.oldIndex = 0;
       _s.currentIndex = 0;
       _s.currentPositionTop = 0;
-      _s.secLength = opts.secLength === 0 ? _el.find('.section').length : opts.secLength;
-      _s.moveValue = parseInt(opts.secHeight);
+      _s.moveValue = parseInt(_s.secHeight);
 
       initEvent();
     }
@@ -88,39 +89,13 @@
       });
     }
 
-    function renewCurrentIndex() {
-      switch (_s.secIndex) {
-        case 'up':  // 스크롤 올리기
-          _s.currentIndex--;
-          opts.sliderBefore(_s.oldIndex, _s.currentIndex);
-          _s.moveValue = _el.find('.section').eq(_s.oldIndex).height();
-          _s.currentPositionTop = _s.currentPositionTop + _s.moveValue;
-          break;
-        case 'down':  // 스크롤 내리기
-          _s.currentIndex++;
-          opts.sliderBefore(_s.oldIndex, _s.currentIndex);
-          _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
-          _s.currentPositionTop = _s.currentPositionTop - _s.moveValue;
-          break;
-        default:  // 섹션 번호 입력
-          if (typeof _s.secIndex  === 'number') {
-            _s.currentIndex = _s.secIndex;
-            opts.sliderBefore(_s.oldIndex, _s.secIndex );
-
-            var secIndex = 0;
-            if (_s.secIndex === _s.secLength - 1) secIndex = _el.find('.section').eq(_s.currentIndex).height;
-            _s.currentPositionTop = -(_s.moveValue * _s.secIndex + secIndex );
-          }
-      }
-    }
-
     function checkDirection(secIndex) {
-      if (_s.stopAllFunctions) return;
-
-      if ( _s.scrolling
-        || _s.currentIndex === 0 && secIndex === 'up'
-        || _s.currentIndex === _s.secLength - 1 && secIndex === 'down'
-        || _s.currentIndex === secIndex
+      if ( _s.scrolling  // 스크롤 중일 때
+        || _s.stopAllFunctions  // 모든 기능 정지하기일 때
+        || _s.currentIndex === 0 && secIndex === 'up'  // 가장 상단일 때
+        || _s.currentIndex === _s.secLength - 1 && secIndex === 'down'  // 가장 하단일 때
+        || _s.currentIndex === secIndex  // 현재 섹션과 입력된 섹션이 같을 때
+        || _s.secLength - 1 < secIndex  // 섹션의 개수보다 입력된 섹션이 클 때
       ) return;
 
       _s.scrolling = true;
@@ -128,16 +103,68 @@
       _s.secIndex = secIndex;
 
       renewCurrentIndex();
+      animationBefore();
+      animationFooter();
       animateSection();
+    }
+
+    function animationFooter() {
+      switch (_s.secIndex) {
+        case 'up':  // 스크롤 올리기
+          _s.moveValue = _el.find('.section').eq(_s.oldIndex).height();
+          _s.currentPositionTop = _s.currentPositionTop + _s.moveValue;
+          break;
+        case 'down':  // 스크롤 내리기
+          _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+          _s.currentPositionTop = _s.currentPositionTop - _s.moveValue;
+          break;
+        default:  // 섹션 번호 입력
+          if (typeof _s.secIndex  === 'number') {
+            _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+            var secIndex = 0;
+            if (_s.secIndex === _s.secLength - 1) secIndex = _el.find('.section').eq(_s.currentIndex).height() - _s.secHeight;
+            _s.currentPositionTop = -(_s.secHeight * _s.secIndex + secIndex );
+          }
+      }
+    }
+
+    function renewCurrentIndex() {
+      switch (_s.secIndex) {
+        case 'up':  // 스크롤 올리기
+          _s.currentIndex--;
+          break;
+        case 'down':  // 스크롤 내리기
+          _s.currentIndex++;
+          break;
+        default:  // 섹션 번호 입력
+          if (typeof _s.secIndex  === 'number') {
+            _s.currentIndex = _s.secIndex;
+          }
+      }
     }
 
     function animateSection() {
       _s.wrap.stop().animate({
         top: _s.currentPositionTop
-      }, opts.scrollingSpeed, completeAnimation);
+      }, opts.scrollingSpeed, animationAfter);
     }
 
-    function completeAnimation() {
+    function animationBefore() {
+      switch (_s.secIndex) {
+        case 'up':  // 스크롤 올리기
+          opts.sliderBefore(_s.oldIndex, _s.currentIndex);
+          break;
+        case 'down':  // 스크롤 내리기
+          opts.sliderBefore(_s.oldIndex, _s.currentIndex);
+          break;
+        default:  // 섹션 번호 입력
+          if (typeof _s.secIndex  === 'number') {
+            opts.sliderBefore(_s.oldIndex, _s.secIndex );
+          }
+      }
+    }
+
+    function animationAfter() {
       _s.scrolling = false;
 
       opts.sliderAfter(_s.oldIndex, _s.currentIndex);

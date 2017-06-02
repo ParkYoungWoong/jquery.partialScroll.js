@@ -12,7 +12,6 @@ $(function () {
 
   $('.move_to button').on('click', function () {
     var val = $(this).siblings('input').val();
-    console.log(val);
     scroll1.moveTo(val);
   });
 
@@ -24,12 +23,16 @@ $(function () {
     scroll1.moveToDown();
   });
 
-  $('.stop').on('click', function () {
+  $('.pause').on('click', function () {
     scroll1.stopScroll();
+    $(this).css({ background: 'red' });
+    $('.play').css({ background: 'black' });
   });
 
-  $('.start').on('click', function () {
+  $('.play').on('click', function () {
     scroll1.startScroll();
+    $(this).css({ background: 'red' });
+    $('.pause').css({ background: 'black' });
   });
 
 });
