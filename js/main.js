@@ -1,6 +1,7 @@
 $(function () {
 
   var scroll1 = $('.container').partialScroll({
+    footer: true,
     sliderBefore: function (oldIndex, newIndex) {
       console.log('BEFORE - old: ' + oldIndex + ', new: ' + newIndex);
     },
@@ -9,8 +10,10 @@ $(function () {
     }
   });
 
-  $('.move_to').on('click', function () {
-    scroll1.moveTo(2);
+  $('.move_to button').on('click', function () {
+    var val = $(this).siblings('input').val();
+    console.log(val);
+    scroll1.moveTo(val);
   });
 
   $('.move_up').on('click', function () {

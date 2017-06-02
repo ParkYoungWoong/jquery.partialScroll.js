@@ -29,6 +29,10 @@ html, body {
 .section:nth-child(2) { background: blue; }
 .section:nth-child(3) { background: green; }
 .section:nth-child(4) { background: violet; }
+.section.footer {
+    height: 300px;
+    background: red;
+}
 
 .btn {
     position: fixed;
@@ -46,4 +50,20 @@ html, body {
     line-height: 20px;
     font-size: 12px;
     cursor: pointer;
+}
+.btn li.move_to {
+
+}
+.btn li.move_to input {
+    width: 70px;
+    height: 20px;
+    padding: 1px 8px;
+    box-sizing: border-box;
+    float: left;
+}
+.btn li.move_to button {
+    width: 50px;
+    height: 20px;
+    float: left;
+    font-size: 12px;
 }

@@ -23,6 +23,7 @@
       secLength: 0, // 섹션의 개수
       scrollingSpeed: 700, // 섹션 속도
       throttleScrolling: 100, // 스크롤 체크 속도
+      footer: false, // FOOTER 사용 유무
       sliderBefore: function () { return true; },
       sliderAfter: function () { return true; }
     }, opts);
@@ -31,8 +32,6 @@
 
       opts.secWidth = _el.css('width');
       opts.secHeight = _el.css('height');
-
-      console.log(_el.css('width'), _el.css('height'));
 
       _el.css({ overflow: 'hidden' });
       _el.wrapInner('<div class="' + AREA + '"></div>');
@@ -49,6 +48,7 @@
       _s.currentIndex = 0;
       _s.currentPositionTop = 0;
       _s.secLength = opts.secLength === 0 ? _el.find('.section').length : opts.secLength;
+      _s.moveValue = parseInt(opts.secHeight);
 
       initEvent();
     }
@@ -88,6 +88,32 @@
       });
     }
 
+    function renewCurrentIndex() {
+      switch (_s.secIndex) {
+        case 'up':  // 스크롤 올리기
+          _s.currentIndex--;
+          opts.sliderBefore(_s.oldIndex, _s.currentIndex);
+          _s.moveValue = _el.find('.section').eq(_s.oldIndex).height();
+          _s.currentPositionTop = _s.currentPositionTop + _s.moveValue;
+          break;
+        case 'down':  // 스크롤 내리기
+          _s.currentIndex++;
+          opts.sliderBefore(_s.oldIndex, _s.currentIndex);
+          _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+          _s.currentPositionTop = _s.currentPositionTop - _s.moveValue;
+          break;
+        default:  // 섹션 번호 입력
+          if (typeof _s.secIndex  === 'number') {
+            _s.currentIndex = _s.secIndex;
+            opts.sliderBefore(_s.oldIndex, _s.secIndex );
+
+            var secIndex = 0;
+            if (_s.secIndex === _s.secLength - 1) secIndex = _el.find('.section').eq(_s.currentIndex).height;
+            _s.currentPositionTop = -(_s.moveValue * _s.secIndex + secIndex );
+          }
+      }
+    }
+
     function checkDirection(secIndex) {
       if (_s.stopAllFunctions) return;
 
@@ -101,52 +127,24 @@
       _s.oldIndex = _s.currentIndex;
       _s.secIndex = secIndex;
 
-      switch (_s.secIndex) {
-        case 'up':
-          opts.sliderBefore(_s.oldIndex, _s.oldIndex - 1);
-          _s.currentPositionTop = _s.currentPositionTop + parseInt(opts.secHeight);
-          break;
-        case 'down':
-          opts.sliderBefore(_s.oldIndex, _s.oldIndex + 1);
-          _s.currentPositionTop = _s.currentPositionTop - parseInt(opts.secHeight);
-          break;
-        default:
-          if (typeof _s.secIndex  === 'number') {
-            opts.sliderBefore(_s.oldIndex, _s.secIndex );
-            _s.currentPositionTop = -(parseInt(opts.secHeight) * _s.secIndex );
-          }
-      }
-
+      renewCurrentIndex();
       animateSection();
     }
 
     function animateSection() {
       _s.wrap.stop().animate({
         top: _s.currentPositionTop
-      }, opts.scrollingSpeed, renewCurrentIndex);
+      }, opts.scrollingSpeed, completeAnimation);
     }
 
-    function renewCurrentIndex() {
-      switch (_s.secIndex) {
-        case 'up':
-          _s.currentIndex--;
-          break;
-        case 'down':
-          _s.currentIndex++;
-          break;
-        default:
-          if (typeof _s.secIndex  === 'number') {
-            _s.currentIndex = _s.secIndex;
-          }
-      }
-
+    function completeAnimation() {
       _s.scrolling = false;
 
       opts.sliderAfter(_s.oldIndex, _s.currentIndex);
     }
 
     _el.moveTo = function (secIndex) {
-      checkDirection(secIndex);
+      checkDirection( Number(secIndex) );
     };
 
     _el.moveToUp = function () {
