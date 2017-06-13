@@ -2,6 +2,7 @@
   'use strict';
 
   var AREA = 'partialscroll-area';
+  var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
   $.fn.partialScroll = function (opts) {
 
@@ -21,7 +22,7 @@
       secWidth: 0, // 스크롤 영역의 가로 너비
       secHeight: 0, // 스크롤 영역의 세로 너비
       secLength: 0, // 섹션의 개수
-      scrollingSpeed: 700, // 섹션 속도
+      scrollingSpeed: 900, // 섹션 속도
       throttleScrolling: 100, // 스크롤 체크 속도
       sliderBefore: function () { return true; },
       sliderAfter: function () { return true; }
@@ -32,7 +33,7 @@
       opts.secWidth = _el.css('width');
       opts.secHeight = _el.css('height');
 
-      console.log(_el.css('width'), _el.css('height'));
+      // console.log(_el.css('width'), _el.css('height'));
 
       _el.css({ overflow: 'hidden' });
       _el.wrapInner('<div class="' + AREA + '"></div>');
@@ -49,6 +50,8 @@
       _s.currentIndex = 0;
       _s.currentPositionTop = 0;
       _s.secLength = opts.secLength === 0 ? _el.find('.section').length : opts.secLength;
+      _s.newDate = new Date();
+      _s.oldDate = null;
 
       initEvent();
     }
@@ -57,27 +60,50 @@
       checkMouseWheel();
     }
 
+    function checkBrowser(e) {
+      var delta = null;
+      var event = e.originalEvent;
+
+      if (event.detail) {
+        delta = event.detail * -40;  // FF
+      } else {
+        delta = event.wheelDelta;  // CR, IE
+      }
+
+      return delta;
+    }
+
+    function killBounce(wait, e) {
+      if (!isMac) return;
+
+      _s.oldDate = _s.newDate;
+      _s.newDate = new Date();
+
+      var timeLag = _s.newDate.getTime() - _s.oldDate.getTime();
+      var delta = Math.abs(checkBrowser(e));
+
+      console.log(delta);
+
+      if (timeLag < wait && delta < 50) {
+        return true;
+      }
+    }
+
     function checkMouseWheel() {
-
       _el.on('mousewheel DOMMouseScroll', function(e) {
-        if (_s.stopAllFunctions) return;
+        if (_s.stopAllFunctions
+          || _s.throttleWheel
+          || killBounce(150, e)
+        ) return;
 
-        if (_s.throttleWheel) return;
         _s.throttleWheel = true;
 
-        var event = e.originalEvent;
-        var delta = 0;
+        var delta = checkBrowser(e);
 
-        if (event.detail) delta = event.detail * -40; // FF
-        else delta = event.wheelDelta; // CR, IE
-
-        switch (delta) {
-          case 120:
-            _s.wheel = 'up';
-            break;
-          case -120:
-            _s.wheel = 'down';
-            break;
+        if (delta === 120 || delta > 0) {  // Normal || Mac
+          _s.wheel = 'up';
+        } else if (delta === -120 || delta < 0) {
+          _s.wheel = 'down';
         }
 
         checkDirection(_s.wheel);
@@ -140,7 +166,9 @@
           }
       }
 
-      _s.scrolling = false;
+      setTimeout(function () {
+        _s.scrolling = false;
+      }, 400);
 
       opts.sliderAfter(_s.oldIndex, _s.currentIndex);
     }
