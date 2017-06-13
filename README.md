@@ -4,12 +4,16 @@
 
 ### Step 1
 
+Link the required files.
+
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="js/jquery.partialScroll.js"></script>
 ```
 
 ### Step 2
+
+Creating HTML.
 
 ```html
 <div class="partialscroll">
@@ -21,6 +25,24 @@
 ```
 
 ### Step 3
+
+Creating CSS.
+
+```css
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.partialscroll {
+    width: 1920px;
+    height: 980px;
+}
+```
+
+### Step 4
+
+Call the `partialScroll` method.
 
 ```js
 $(document).ready(function () {

@@ -3,10 +3,10 @@ $(function () {
   var scroll1 = $('.container').partialScroll({
     footer: true,
     sliderBefore: function (oldIndex, newIndex) {
-      console.log('BEFORE - old: ' + oldIndex + ', new: ' + newIndex);
+      // console.log('BEFORE - old: ' + oldIndex + ', new: ' + newIndex);
     },
     sliderAfter: function (oldIndex, newIndex) {
-      console.log('AFTER - old: ' + oldIndex + ', new: ' + newIndex);
+      // console.log('AFTER - old: ' + oldIndex + ', new: ' + newIndex);
     }
   });
 
