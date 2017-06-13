@@ -1,6 +1,7 @@
 $(function () {
 
   var scroll1 = $('.container').partialScroll({
+    footer: true,
     sliderBefore: function (oldIndex, newIndex) {
       // console.log('BEFORE - old: ' + oldIndex + ', new: ' + newIndex);
     },
@@ -9,8 +10,9 @@ $(function () {
     }
   });
 
-  $('.move_to').on('click', function () {
-    scroll1.moveTo(2);
+  $('.move_to button').on('click', function () {
+    var val = $(this).siblings('input').val();
+    scroll1.moveTo(val);
   });
 
   $('.move_up').on('click', function () {
@@ -21,12 +23,16 @@ $(function () {
     scroll1.moveToDown();
   });
 
-  $('.stop').on('click', function () {
+  $('.pause').on('click', function () {
     scroll1.stopScroll();
+    $(this).css({ background: 'red' });
+    $('.play').css({ background: 'black' });
   });
 
-  $('.start').on('click', function () {
+  $('.play').on('click', function () {
     scroll1.startScroll();
+    $(this).css({ background: 'red' });
+    $('.pause').css({ background: 'black' });
   });
 
 });
