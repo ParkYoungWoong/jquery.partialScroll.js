@@ -1,4 +1,4 @@
-# Partail Scroll JS
+# Partial Scroll JS
 
 ## Installation
 
