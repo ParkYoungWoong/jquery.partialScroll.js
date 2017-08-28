@@ -40,7 +40,8 @@
       _s.wrap = _el.find('.' + AREA);
       _s.wrap.css({
         width: _s.secWidth,
-        position: 'relative'
+        position: 'relative',
+        transition: 'all ' + (opts.scrollingSpeed / 1000) + 's'
       });
 
       _s.stopAllFunctions = false;
@@ -169,9 +170,11 @@
     }
 
     function animateSection() {
-      _s.wrap.stop().animate({
-        top: _s.currentPositionTop
-      }, opts.scrollingSpeed, animationAfter);
+      // _s.wrap.stop().animate({
+      //   top: _s.currentPositionTop
+      // }, opts.scrollingSpeed, animationAfter);
+      _s.wrap.css({ transform: 'translateY(' + _s.currentPositionTop + 'px)' });
+      setTimeout(animationAfter, opts.scrollingSpeed);
     }
 
     function animationBefore() {

@@ -54,75 +54,17 @@ $(document).ready(function () {
 
 ### General
 
-#### `secWidth`
-
-섹션의 가로 너비
-
-```
-default: 0
-options: INTEGER
-```
-
-#### `secHeight`
-
-섹션의 세로 너비
-
-```
-default: 0
-options: INTEGER
-```
-
-#### `secLength`
-
-섹션의 개수
-
-```
-default: 0
-options: INTEGER
-```
-
-#### `scrollingSpeed`
-
-섹션의 속도
-
-```
-default: 700
-options: INTEGER
-```
-
-#### `throttleScrolling`
-
-스크롤 체크 속도
-
-```
-default: 100
-options: INTEGER
-```
-
-### Callbacks
-
-#### `sliderBefore`
-
-스크롤 슬라이드 직전
-
-```
-default: function () {}
-options: function (oldIndex, newIndex) {}
-arguments:
-  oldIndex: 슬라이드 이전 페이지 번호
-  newIndex: 슬라이드 이후 페이지 번호
-```
-
-#### `sliderAfter`
-
-스크롤 슬라이드 직후
-
-```
-default: function () {}
-options: function (oldIndex, newIndex) {}
-arguments:
-  oldIndex: 슬라이드 이전 페이지 번호
-  newIndex: 슬라이드 다음 페이지 번호
+```js
+$('.partialscroll').partialScroll({
+  secWidth: 0,  // INTEGER / 스크롤 영역의 가로 너비
+  secHeight: 0,  // INTEGER / 스크롤 영역의 세로 너비
+  secLength: 0,  // INTEGER / 섹션의 개수
+  scrollingSpeed: 900,  // INTEGER / 섹션 속도
+  throttleScrolling: 100,  // INTEGER / 스크롤 체크 속도
+  footer: false,  // BOOLEAN / FOOTER 사용 유무
+  sliderBefore: function (oldIndex, newIndex) {  },  // 슬라이드 직전 
+  sliderAfter: function (oldIndex, newIndex) {  }  // 슬라이드 직후
+});
 ```
 
 ### Public methods
@@ -156,7 +98,9 @@ slider.moveToDown();
 
 #### `stopScroll`
 
-스크롤 정지 (모든 스크롤 메소드 사용 불가능)
+스크롤 정지 
+
+> 모든 스크롤 메소드를 사용할 수 없습니다.
 
 ```js
 var slider = $('partialscroll').partialScroll();
@@ -165,7 +109,9 @@ slider.stopScroll();
 
 #### `startScroll`
 
-스크롤 시작 (모든 스크롤 메소드 사용 가능)
+스크롤 시작 
+
+> 모든 스크롤 메소드를 사용 가능합니다.
 
 ```js
 var slider = $('partialscroll').partialScroll();
