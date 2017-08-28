@@ -29,15 +29,27 @@ $(function () {
   });
 
   $('.pause').on('click', function () {
-    scroll1.stopScroll();
+    scroll1.stopWheel();
     $(this).css({ background: 'red' });
     $('.play').css({ background: 'black' });
   });
 
   $('.play').on('click', function () {
-    scroll1.startScroll();
+    scroll1.startWheel();
     $(this).css({ background: 'red' });
     $('.pause').css({ background: 'black' });
+  });
+
+  $('.stop').on('click', function () {
+    scroll1.stopScroll();
+    $(this).css({ background: 'red' });
+    $('.start').css({ background: 'black' });
+  });
+
+  $('.start').on('click', function () {
+    scroll1.startScroll();
+    $(this).css({ background: 'red' });
+    $('.stop').css({ background: 'black' });
   });
 
 });

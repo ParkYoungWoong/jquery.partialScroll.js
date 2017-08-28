@@ -222,10 +222,22 @@
       checkDirection('down');
     };
 
+    // Mouse Wheel 만 사용 불가
+    _el.stopWheel = function () {
+      _s.throttleWheel = true;
+    };
+
+    // Mouse Wheel 만 사용 가능
+    _el.startWheel = function () {
+      _s.throttleWheel = false;
+    };
+
+    // 전체 기능 사용 불가
     _el.stopScroll = function () {
       _s.stopAllFunctions = true;
     };
 
+    // 전체 기능 사용 가능
     _el.startScroll = function () {
       _s.stopAllFunctions = false;
     };

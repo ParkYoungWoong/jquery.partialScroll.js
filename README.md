@@ -105,6 +105,26 @@ var slider = $('partialscroll').partialScroll();
 slider.moveToDown();
 ```
 
+#### `stopWheel`
+
+마우스 휠 사용 정지
+
+> 마우스 휠(Mouse wheel)을 제외한 기능들은 사용할 수 있습니다. 
+
+```js
+var slider = $('partialscroll').partialScroll();
+slider.stopWheel();
+```
+
+#### `startWheel`
+
+마우스 휠 사용 가능
+
+```js
+var slider = $('partialscroll').partialScroll();
+slider.startWheel();
+```
+
 #### `stopScroll`
 
 스크롤 정지 
