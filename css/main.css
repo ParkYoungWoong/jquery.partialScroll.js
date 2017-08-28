@@ -40,7 +40,7 @@ html, body {
     left: 0;
 }
 .btn li {
-    width: 120px;
+    width: 200px;
     height: 20px;
     margin: 10px;
     background: black;
@@ -62,7 +62,7 @@ html, body {
     float: left;
 }
 .btn li.move_to button {
-    width: 50px;
+    width: 130px;
     height: 20px;
     float: left;
     font-size: 12px;

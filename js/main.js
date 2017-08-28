@@ -10,9 +10,14 @@ $(function () {
     }
   });
 
-  $('.move_to button').on('click', function () {
+  $('.move_to.normal_move_to button').on('click', function () {
     var val = $(this).siblings('input').val();
     scroll1.moveTo(val);
+  });
+
+  $('.move_to.silent_move_to button').on('click', function () {
+    var val = $(this).siblings('input').val();
+    scroll1.silentMoveTo(val);
   });
 
   $('.move_up').on('click', function () {

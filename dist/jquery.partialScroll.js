@@ -115,7 +115,7 @@
       });
     }
 
-    function checkDirection(secIndex) {
+    function checkDirection(secIndex, silent) {
       if ( _s.scrolling  // 스크롤 중일 때
         || _s.stopAllFunctions  // 모든 기능 정지하기일 때
         || _s.currentIndex === 0 && secIndex === 'up'  // 가장 상단일 때
@@ -128,10 +128,16 @@
       _s.oldIndex = _s.currentIndex;
       _s.secIndex = secIndex;
 
+      checkSilent(silent);
       renewCurrentIndex();
       animationBefore();
       animationFooter();
       animateSection();
+    }
+
+    function checkSilent(silent) {
+      if (silent) _s.wrap.css({ transition: 'none' });
+      else _s.wrap.css({ transition: 'all ' + (opts.scrollingSpeed / 1000) + 's' });
     }
 
     function animationFooter() {
@@ -201,7 +207,11 @@
     }
 
     _el.moveTo = function (secIndex) {
-      checkDirection( Number(secIndex) );
+      checkDirection( parseInt(secIndex) );
+    };
+
+    _el.silentMoveTo = function (secIndex) {
+      checkDirection( parseInt(secIndex), true );
     };
 
     _el.moveToUp = function () {

@@ -78,6 +78,15 @@ var slider = $('partialscroll').partialScroll();
 slider.moveTo(3);  // 2번째 페이지로 이동
 ```
 
+#### `silentMoveTo`
+
+원하는 섹션으로 조용히(애니메이션 없이) 이동 (zero-based)
+
+```js
+var slider = $('partialscroll').partialScroll();
+slider,silentMoveTo(2);  // 1번재 페이지로 조용히 이동
+```
+
 #### `moveToUp`
 
 바로 위 섹션으로 이동
