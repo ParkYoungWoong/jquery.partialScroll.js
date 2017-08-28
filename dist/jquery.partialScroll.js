@@ -25,6 +25,8 @@
       scrollingSpeed: 900, // 섹션 속도
       throttleScrolling: 100, // 스크롤 체크 속도
       footer: false, // FOOTER 사용 유무
+      globalWheel: true,  // 전체 영역에서 Mouse Wheel 사용
+      globalSelector: 'html',  // 기준이 될 전체 영역의 선택자
       sliderBefore: function () { return true; },
       sliderAfter: function () { return true; }
     }, opts);
@@ -91,7 +93,9 @@
     }
 
     function checkMouseWheel() {
-      _el.on('mousewheel DOMMouseScroll', function(e) {
+      var element = opts.globalWheel ? $(opts.globalSelector) : _el;  // 전역 스크롤 사용인지, 지역 스크롤 사용인지 판단
+
+      element.on('mousewheel DOMMouseScroll', function(e) {
         if (_s.stopAllFunctions
           || _s.throttleWheel
           || killBounce(150, e)

@@ -62,6 +62,8 @@ $('.partialscroll').partialScroll({
   scrollingSpeed: 900,  // INTEGER / 섹션 속도
   throttleScrolling: 100,  // INTEGER / 스크롤 체크 속도
   footer: false,  // BOOLEAN / FOOTER 사용 유무
+  globalWheel: true,  // 전체 영역에서 Mouse Wheel 사용
+  globalSelector: 'html',  // 기준이 될 전체 영역의 선택자
   sliderBefore: function (oldIndex, newIndex) {  },  // 슬라이드 직전 
   sliderAfter: function (oldIndex, newIndex) {  }  // 슬라이드 직후
 });

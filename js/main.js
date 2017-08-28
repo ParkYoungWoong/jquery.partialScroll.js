@@ -2,6 +2,7 @@ $(function () {
 
   var scroll1 = $('.container').partialScroll({
     footer: true,
+    globalWheel: true,
     sliderBefore: function (oldIndex, newIndex) {
       // console.log('BEFORE - old: ' + oldIndex + ', new: ' + newIndex);
     },
