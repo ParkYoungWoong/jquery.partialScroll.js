@@ -56,6 +56,7 @@ $(document).ready(function () {
 
 ```js
 $('.partialscroll').partialScroll({
+  mode: 'vertical',  // ['vertical', 'horizontal'] / 가로, 세로 모드
   secWidth: 0,  // INTEGER / 스크롤 영역의 가로 너비
   secHeight: 0,  // INTEGER / 스크롤 영역의 세로 너비
   secLength: 0,  // INTEGER / 섹션의 개수
