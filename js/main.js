@@ -1,6 +1,7 @@
 $(function () {
 
   var scroll1 = $('.container').partialScroll({
+    mode: 'horizontal',
     footer: true,
     globalWheel: true,
     sliderBefore: function (oldIndex, newIndex) {

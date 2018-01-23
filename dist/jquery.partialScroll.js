@@ -19,6 +19,7 @@
     var _el = this;
 
     opts = $.extend({
+      mode: 'vertical', // 수직 / 수평 모드
       secWidth: 0, // 스크롤 영역의 가로 너비
       secHeight: 0, // 스크롤 영역의 세로 너비
       secLength: 0, // 섹션의 개수
@@ -147,19 +148,43 @@
     function animationFooter() {
       switch (_s.secIndex) {
         case 'up':  // 스크롤 올리기
-          _s.moveValue = _el.find('.section').eq(_s.oldIndex).height();
+          if (opts.mode === 'vertical') {
+            _s.moveValue = _el.find('.section').eq(_s.oldIndex).height();
+          } else if (opts.mode === 'horizontal') {
+            _s.moveValue = _el.find('.section').eq(_s.oldIndex).width();
+          }
           _s.currentPositionTop = _s.currentPositionTop + _s.moveValue;
           break;
         case 'down':  // 스크롤 내리기
-          _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+          if (opts.mode === 'vertical') {
+            _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+          } else if (opts.mode === 'horizontal') {
+            _s.moveValue = _el.find('.section').eq(_s.currentIndex).width();
+          }
           _s.currentPositionTop = _s.currentPositionTop - _s.moveValue;
           break;
         default:  // 섹션 번호 입력
           if (typeof _s.secIndex  === 'number') {
-            _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+            if (opts.mode === 'vertical') {
+              _s.moveValue = _el.find('.section').eq(_s.currentIndex).height();
+            } else if (opts.mode === 'horizontal') {
+              _s.moveValue = _el.find('.section').eq(_s.currentIndex).width();
+            }
             var secIndex = 0;
-            if (_s.secIndex === _s.secLength - 1) secIndex = _el.find('.section').eq(_s.currentIndex).height() - _s.secHeight;
-            _s.currentPositionTop = -(_s.secHeight * _s.secIndex + secIndex );
+            if (_s.secIndex === _s.secLength - 1) {
+              if (opts.mode === 'vertical') {
+                secIndex = _el.find('.section').eq(_s.currentIndex).height() - _s.secHeight;
+              } else if (opts.mode === 'horizontal') {
+                secIndex = _el.find('.section').eq(_s.currentIndex).width() - _s.secWidth;
+              }
+            }
+            if (_s.secIndex === _s.secLength - 1) {
+              if (opts.mode === 'vertical') {
+                _s.currentPositionTop = -(_s.secHeight * _s.secIndex + secIndex );
+              } else if (opts.mode === 'horizontal') {
+                _s.currentPositionTop = -(_s.secWidth * _s.secIndex + secIndex );
+              }
+            }
           }
       }
     }
@@ -183,7 +208,13 @@
       // _s.wrap.stop().animate({
       //   top: _s.currentPositionTop
       // }, opts.scrollingSpeed, animationAfter);
-      _s.wrap.css({ transform: 'translateY(' + _s.currentPositionTop + 'px)' });
+      var direction = 0;
+      if (opts.mode === 'vertical') {
+        direction = 'translateY(';
+      } else if (opts.mode === 'horizontal') {
+        direction = 'translateX(';
+      }
+      _s.wrap.css({ transform: direction + _s.currentPositionTop + 'px)' });
       setTimeout(animationAfter, opts.scrollingSpeed);
     }
 

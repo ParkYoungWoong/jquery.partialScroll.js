@@ -17,6 +17,11 @@ html, body {
         margin-left: -960px;
     }
 }
+.section_wrap {
+    width: 9600px;
+    height: 980px;
+    position: relative;
+}
 .section {
     width: 1920px;
     height: 980px;
@@ -24,13 +29,15 @@ html, body {
     text-align: center;
     line-height: 980px;
     color: white;
+    float: left;
 }
 .section:nth-child(1) { background: red; }
 .section:nth-child(2) { background: blue; }
 .section:nth-child(3) { background: green; }
 .section:nth-child(4) { background: violet; }
 .section.footer {
-    height: 300px;
+    width: 300px;
+    height: 980px;
     background: red;
 }
 
